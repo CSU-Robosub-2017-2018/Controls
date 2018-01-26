@@ -38,7 +38,7 @@ class PID:
         print(error)
         pid_p = self.Kp * error
 
-        if error in range(-3, 3):
+        if error in range(-0.2, 0.2):
             self.pid_i = self.pid_i + (self.Ki * error)
 
         pid_d = self.Kd * ((error - self.prevError)/elapsedTime)
