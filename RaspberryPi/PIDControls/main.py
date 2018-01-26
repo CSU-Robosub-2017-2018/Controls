@@ -5,4 +5,4 @@ pid = PID()
 
 while True:
     pid.update()
-    time.sleep(1)
+    time.sleep(.2)
