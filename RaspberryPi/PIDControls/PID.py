@@ -30,7 +30,7 @@ class PID:
         elapsedTime = (self.time - prevTime) / 1000
 
         angles = self.mpu.get_accel_data()
-        currentAngle = math.atan2(angles[0], angles[1])
+        currentAngle = math.atan2(angles['x'], angles['z'])
 
         print("angle: " + currentAngle)
 
