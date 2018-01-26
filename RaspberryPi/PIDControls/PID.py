@@ -47,6 +47,8 @@ class PID:
 
         print("pid: " + str(pid))
 
+        self.prevError = error
+
 
 
 
