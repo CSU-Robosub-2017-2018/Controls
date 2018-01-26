@@ -4,7 +4,7 @@
 # This will read the angle of an MPU6050 and attempt to correct the angle back to gravity.
 
 import time as clock
-import mpu6050 as mpu
+import mpu6050
 import math
 
 
@@ -12,6 +12,7 @@ class PID:
 
     def __init__(self):
         print("welcome to pid")
+        self.mpu = mpu6050()
         self.Kp = 3.55
         self.Ki = 0.005
         self.Kd = 2.05
@@ -28,7 +29,7 @@ class PID:
         self.time = clock.time()
         elapsedTime = (self.time - prevTime) / 1000
 
-        angles = mpu.get_accel_data()
+        angles = self.mpu.get_accel_data()
         currentAngle = math.atan2(angles[0], angles[1])
 
         print("angle: " + currentAngle)
