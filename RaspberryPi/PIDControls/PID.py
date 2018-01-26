@@ -12,7 +12,7 @@ class PID:
 
     def __init__(self):
         print("welcome to pid")
-        self.mpu = mpu6050()
+        self.mpu = mpu6050(0x69)
         self.Kp = 3.55
         self.Ki = 0.005
         self.Kd = 2.05
