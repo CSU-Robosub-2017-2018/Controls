@@ -32,7 +32,7 @@ class PID:
         angles = self.mpu.get_accel_data()
         currentAngle = math.atan2(angles['x'], angles['z'])
 
-        print("angle: " + currentAngle)
+        print("angle: " + str(currentAngle))
 
         error = currentAngle - self.desiredAngle
         pid_p = self.Kp * error
@@ -44,7 +44,7 @@ class PID:
 
         pid = pid_p + self.pid_i + pid_d
 
-        print("pid: " + pid)
+        print("pid: " + str(pid))
 
 
 
