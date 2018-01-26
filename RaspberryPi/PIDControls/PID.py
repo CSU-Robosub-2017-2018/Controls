@@ -31,6 +31,7 @@ class PID:
 
         angles = self.mpu.get_accel_data()
         currentAngle = math.atan2(angles['x'], angles['z'])
+        currentAngle = math.degrees(currentAngle)
 
         print("angle: " + str(currentAngle))
 
