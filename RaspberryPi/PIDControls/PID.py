@@ -27,6 +27,7 @@ class PID:
         print("update")
         prevTime = self.time
         self.time = clock.time()
+        print(self.time)
         elapsedTime = (self.time - prevTime) / 1000
 
         angles = self.mpu.get_accel_data()
