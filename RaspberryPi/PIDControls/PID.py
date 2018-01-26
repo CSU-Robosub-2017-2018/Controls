@@ -4,7 +4,7 @@
 # This will read the angle of an MPU6050 and attempt to correct the angle back to gravity.
 
 import time as clock
-import mpu6050
+from mpu6050 import mpu6050
 import math
 
 
