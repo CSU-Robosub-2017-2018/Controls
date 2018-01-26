@@ -10,11 +10,11 @@ import math
 
 class PID:
 
-    def __init__(self, Kp = 3.55, Ki = 0.005, Kd = 2.05):
+    def __init__(self):
         print("welcome to pid")
-        self.Kp = Kp
-        self.Ki = Ki
-        self.Kd = Kd
+        self.Kp = 3.55
+        self.Ki = 0.005
+        self.Kd = 2.05
         self.prevTime = 0
         self.time = clock.time()
         self.desiredAngle = 0 #FIXME find the desired angle
