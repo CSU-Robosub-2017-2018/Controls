@@ -1,7 +1,8 @@
 import time
-import PID
+from PID import PID
 
+pid = PID()
 
 while True:
-    PID.update()
+    pid.update()
     time.sleep(1)
