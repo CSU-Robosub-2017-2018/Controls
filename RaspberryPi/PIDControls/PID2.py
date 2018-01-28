@@ -45,8 +45,8 @@ try:
 
         pid = pid_p + pid_i + pid_d
 
-        lcd.lcd_display_string("error: " + str(round(error)),0)
-        lcd.lcd_display_string("pid: " + str(round(pid)), 1)
+        lcd.lcd_display_string("error: " + str(round(error)),1)
+        lcd.lcd_display_string("pid: " + str(round(pid)), 2)
 
         if loop_number > 1000:
             lcd.lcd_clear()
