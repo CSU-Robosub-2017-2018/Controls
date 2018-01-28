@@ -28,7 +28,7 @@ error_prev = 0
 try:
     while True:
         mpu_data = mpu.get_accel_data(True)
-        current_angle = math.degrees(math.atan2(1,1))
+        current_angle = math.degrees(math.atan2(mpu_data['x'], mpu_data['z']))
         error = target_angle - current_angle
 
         pid_p = Kp*error
@@ -42,6 +42,6 @@ try:
         pid = pid_p + pid_i + pid_d
 
         print("error: " + str(error))
-        print("pid" + str(pid))
+        print("pid: " + str(pid))
 finally:
     print("closing stuff")
