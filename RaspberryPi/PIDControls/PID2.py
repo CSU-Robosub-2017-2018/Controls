@@ -28,6 +28,8 @@ target_angle = 90 #degrees
 error_sum = 0
 error_prev = 0
 loop_number = 0
+time_prev = time.time()
+pid_i = 0
 
 try:
     while True:
@@ -37,10 +39,11 @@ try:
 
         pid_p = Kp * error
 
-        error_sum = error_sum + error
-        pid_i = Ki * error_sum
+        pid_i = pid_i + Ki * error
 
-        pid_d = Kd * (error_prev - error)
+        time_now = time.time()
+        pid_d = Kd * (abs(error - error_prev) / abs(time_now - time_prev))
+        time_prev = time_now
         error_prev = error
 
         pid = pid_p + pid_i + pid_d

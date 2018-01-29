@@ -11,9 +11,9 @@ import os
 import time
 
 #PID constants
-Kp = 3.0
-Ki = 0.001
-Kd = 2.0
+Kp = 1
+Ki = 1
+Kd = 1
 
 #Drivers
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -27,10 +27,9 @@ target_angle = 0 #degrees
 error_sum = 0
 error_prev = 0
 time_prev = time.time()
-print(time_prev)
 pid_i = 0
 
-time.sleep(.05)
+time.sleep(.005)
 
 file.write("CurrentError,CurrentPID\n")
 for current_angle in range(-180, 181, 1):
@@ -41,7 +40,7 @@ for current_angle in range(-180, 181, 1):
     pid_i = pid_i + Ki * error
 
     time_now = time.time()
-    pid_d = Kd * ((error - error_prev)/(time_now - time_prev))
+    pid_d = Kd * (abs(error - error_prev)/abs(time_now - time_prev))
     time_prev = time_now
     error_prev = error
 
