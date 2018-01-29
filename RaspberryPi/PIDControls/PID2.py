@@ -35,18 +35,22 @@ try:
         current_angle = math.degrees(math.atan2(mpu_data['x'], mpu_data['z']))
         error = target_angle - current_angle
 
-        pid_p = Kp*error
+        pid_p = Kp * error
 
         error_sum = error_sum + error
-        pid_i = Ki*error_sum
+        pid_i = Ki * error_sum
 
-        pid_d = Kd*(error_prev - error)
+        pid_d = Kd * (error_prev - error)
         error_prev = error
 
         pid = pid_p + pid_i + pid_d
 
-        lcd.lcd_display_string("error: " + str(round(error)).zfill(4), 1)
-        lcd.lcd_display_string("pid: " + str(round(pid)).zfill(4), 2)
+        error_str = "error: " + str(round(error)).zfill(4)
+        pid_str = "pid: " + str(round(pid)).zfill(4)
+        print(error_str)
+        print(pid_str)
+        lcd.lcd_display_string(error_str, 1)
+        lcd.lcd_display_string(pid_str, 2)
 
         if loop_number > 1000:
             lcd.lcd_clear()
