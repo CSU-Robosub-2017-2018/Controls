@@ -12,7 +12,7 @@ import time
 
 #PID constants
 Kp = 1
-Ki = 1
+Ki = 0.001
 Kd = 1
 
 #Drivers
@@ -36,11 +36,14 @@ for current_angle in range(-180, 181, 1):
     error = target_angle - current_angle
 
     pid_p = Kp * error
+    print("p: " + str(pid_p))
 
     pid_i = pid_i + Ki * error
+    print("i: " + str(pid_i))
 
     time_now = time.time()
-    pid_d = Kd * (abs(error - error_prev)/abs(time_now - time_prev))
+    pid_d = Kd * ((error - error_prev)/(time_now - time_prev))
+    print("d: " + str(pid_d))
     time_prev = time_now
     error_prev = error
 
