@@ -1,7 +1,14 @@
-# Author Nick Baron
-# Date 1/25/2018
-# Description: This program is meant as an example of a PID controller.
-# This will read the angle of an MPU6050 and attempt to correct the angle back to gravity.
+"""
+Author Nick Baron
+Date 1/25/2018
+Description: This program is meant as an example of a PID controller.
+This will read the angle of an MPU6050 and attempt to correct the angle back to gravity.
+
+Based on this article: http://www.electronoobs.com/eng_robotica_tut6.php
+
+-----------THIS CODE IS OUT OF DATE------------------
+-See PID2 for more up to date code.
+"""
 
 import time as clock
 from mpu6050 import mpu6050
