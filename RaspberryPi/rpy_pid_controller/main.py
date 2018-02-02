@@ -7,6 +7,9 @@ mpu = mpu6050(0x69)
 pid_pitch = pid_controller(mpu,'x', 'z')
 pid_roll = pid_controller(mpu, 'y', 'z')
 pid_yaw = pid_controller(mpu, 'x', 'y')
+pid_pitch.run()
+pid_roll.run()
+pid_yaw.run()
 
 """Main"""
 while True:

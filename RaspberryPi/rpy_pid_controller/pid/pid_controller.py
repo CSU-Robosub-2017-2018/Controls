@@ -74,9 +74,12 @@ class pid_controller:
             time.sleep(self.update_rate)
 
     def run(self):
-        thread = threading.Thread(target=self.calc_pid, args=())
-        thread.daemon = True  # Daemonize thread
-        thread.start()  # Start the execution
+        self.thread = threading.Thread(target=self.calc_pid, args=())
+        self.thread.daemon = True  # Daemonize thread
+        self.thread.start()  # Start the execution
+
+    def stop(self):
+        return "stop"
 
     def get_pid(self):
         return self.pid
