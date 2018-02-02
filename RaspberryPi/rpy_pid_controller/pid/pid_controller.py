@@ -63,14 +63,14 @@ class pid_controller:
             error = self.target_angle - current_angle
 
             pid_p = self.Kp * error
-            print("p: " + str(pid_p))
+            #print("p: " + str(pid_p))
 
             self.pid_i = self.pid_i + self.Ki * error
-            print("i: " + str(self.pid_i))
+            #print("i: " + str(self.pid_i))
 
             time_now = time.time()
             pid_d = self.Kd * ((error - self.error_prev) / (time_now - self.time_prev))
-            print("d: " + str(pid_d))
+            #print("d: " + str(pid_d))
             self.time_prev = time_now
             self.error_prev = error
 
