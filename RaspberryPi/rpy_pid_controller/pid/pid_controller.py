@@ -59,14 +59,18 @@ class pid_controller:
         while True:
             mpu_data = self.mpu.get_accel_data(True)
             current_angle = math.degrees(math.atan2(mpu_data[self.axis1], mpu_data[self.axis2]))
+
             error = self.target_angle - current_angle
 
             pid_p = self.Kp * error
+            print("p: " + str(pid_p))
 
             self.pid_i = self.pid_i + self.Ki * error
+            print("i: " + str(self.pid_i))
 
             time_now = time.time()
-            pid_d = self.Kd * (error - self.error_prev / time_now - self.time_prev)
+            pid_d = self.Kd * ((error - self.error_prev) / (time_now - self.time_prev))
+            print("d: " + str(pid_d))
             self.time_prev = time_now
             self.error_prev = error
 
