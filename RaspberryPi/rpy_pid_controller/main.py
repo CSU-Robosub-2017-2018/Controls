@@ -1,5 +1,5 @@
-from devices import mpu6050
-from pid import pid_controller
+from devices.mpu6050 import mpu6050
+from pid.pid_controller import pid_controller
 import time
 
 """Setup"""
