@@ -16,8 +16,8 @@ class pid_controller:
         self.target_angle = target  # degrees
         self.update_rate = update_rate
         self.mpu = mpu #MPU6050 object passed in to constructor.
-        self.axis1 = chr(axis1)
-        self.axis2 = chr(axis2)
+        self.axis1 = axis1
+        self.axis2 = axis2
 
         # PID constants
         self.Kp = 3.0
