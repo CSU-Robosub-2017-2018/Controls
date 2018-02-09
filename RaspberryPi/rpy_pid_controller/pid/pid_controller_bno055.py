@@ -15,7 +15,7 @@ class pid_controller:
         # User Constants
         self.target_angle = target  # degrees
         self.update_rate = update_rate
-        self.mpu = imu #IMUbno055 object passed in to constructor.
+        self.imu = imu #IMUbno055 object passed in to constructor.
         self.axis1 = axis
 
         # PID constants
