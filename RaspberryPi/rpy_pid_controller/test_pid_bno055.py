@@ -1,5 +1,5 @@
-from .devices.BNO055 import BNO055
-from .pid.pid_controller_bno055 import pid_controller
+from devices.BNO055 import BNO055
+from pid.pid_controller_bno055 import pid_controller
 import time
 
 imu = BNO055()
