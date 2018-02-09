@@ -17,6 +17,7 @@ pid_yaw.run()
 
 """Main"""
 while True:
+    print("angles: " + str(imu.getVector(BNO055.VECTOR_EULER)))
     print("pitch: " + str(pid_pitch.get_pid()))
     print("roll: " + str(pid_roll.get_pid()))
     print("yaw: " + str(pid_yaw.get_pid()))
