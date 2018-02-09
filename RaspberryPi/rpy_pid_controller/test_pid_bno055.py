@@ -8,9 +8,9 @@ if imu.begin() is not True:
     exit()
 time.sleep(1)
 
-pid_pitch = pid_controller(imu, 1, BNO055.VECTOR_EULER)
-pid_roll = pid_controller(imu, 2, BNO055.VECTOR_EULER)
-pid_yaw = pid_controller(imu, 3, BNO055.VECTOR_EULER)
+pid_pitch = pid_controller(imu, 0, BNO055.VECTOR_EULER)
+pid_roll = pid_controller(imu, 1, BNO055.VECTOR_EULER)
+pid_yaw = pid_controller(imu, 2, BNO055.VECTOR_EULER)
 pid_pitch.run()
 pid_roll.run()
 pid_yaw.run()
