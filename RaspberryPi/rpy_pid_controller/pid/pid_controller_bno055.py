@@ -10,13 +10,14 @@ import threading
 
 class pid_controller:
 
-    def __init__(self, imu, axis, target=0, update_rate=0.5):
+    def __init__(self, imu, axis, vect_type,  target=0, update_rate=0.5):
 
         # User Constants
         self.target_angle = target  # degrees
         self.update_rate = update_rate
         self.imu = imu #IMUbno055 object passed in to constructor.
-        self.axis1 = axis
+        self.axis = axis
+        self.vect_type = vect_type
 
         # PID constants
         self.Kp = 3.0
@@ -57,7 +58,7 @@ class pid_controller:
     def calc_pid(self):
         while True:
             imu_data = self.imu
-            current_angle = imu_data.getVector(BNO055.VECTOR_EULER)[self.axis]
+            current_angle = imu_data.getVector(self.vect_type)[self.axis]
 
             error = self.target_angle - current_angle
 
