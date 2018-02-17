@@ -52,7 +52,7 @@ class ArduinoComm:
 
     def initESC(self):
         #FIXME: write esc initialization
-        self.debug = false
+        self.debug = False
         
     def getArmed(self):
         return self.armed

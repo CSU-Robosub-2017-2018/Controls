@@ -1,5 +1,5 @@
 from time import sleep
-from communications.ArduinoComm import ArduinoComm
+from ArduinoComm import ArduinoComm
 
 a = ArduinoComm()
 
