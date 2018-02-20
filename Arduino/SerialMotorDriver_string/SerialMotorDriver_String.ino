@@ -1,12 +1,12 @@
 #include <Servo.h>
 
 Servo servos[6];
-int servo_pins[] = {3,5,6,9,10,11} //Uno
-//int servo_pins[] = {2,3,4,5,6,7} //Mega
+const int servo_pins[] = {3,5,6,9,10,11} //Uno
+//const int servo_pins[] = {2,3,4,5,6,7} //Mega
 unsigned int new_info[6];
 const int normal_pwm[] = {1500, 1500, 1500, 1500, 1500, 1500};
-int max_pwm = 2000;
-int min_pwm = 1000;
+const int max_pwm = 2000;
+const int min_pwm = 1000;
 
 const int INPUT_SIZE = 31;
 char input[INPUT_SIZE + 1];
@@ -43,19 +43,19 @@ void disarm() {
   }
 }
 
-void write_pwm(int speeds[6]) {
+void write_pwm(int speeds[]) {
   if (!armed) {
     Serial.print("Cannot write when not armed");
     return;
   }
-  for (int i = 0; i < 6; i++) {
+  for (int i = 1; i < sizeof(speeds); i++) {
     if (speeds[i] > max_pwm) {
       speeds[i] = max_pwm;
     }
     else if (speeds[i] < min_pwm) {
       speeds[i] = min_pwm;
     }
-    servos[i].writeMicroseconds(speeds[i]);
+    servos[i-1].writeMicroseconds(speeds[i]);
   }
   Serial.println("write");
 }
