@@ -1,13 +1,12 @@
 #include <Servo.h>
 
 Servo servos[6];
-unsigned int new_info[6];
+int servo_pins[] = {3,5,6,9,10,11} //Uno
+//int servo_pins[] = {2,3,4,5,6,7} //Mega
+unsigned int new_data[6];
 const int normal_pwm[] = {1500, 1500, 1500, 1500, 1500, 1500};
 int max_pwm = 2000;
 int min_pwm = 1000;
-
-const int INPUT_SIZE = 29;
-char input[INPUT_SIZE + 1];
 
 bool armed = false;
 
@@ -16,34 +15,31 @@ int current_time = 0;
 
 void arm() {
   if (armed) {
-    Serial.print("Cannot arm and already armed thing!");
+    return;
   }
   else {
     for (int i = 0; i < 6; i++) {
-      servos[i].attach(i + 2);
+      servos[i].attach(servo_pins[i]);
     }
     armed = true;
     write_pwm(normal_pwm);
-    Serial.println("armed");
   }
 }
 
 void disarm() {
   if (!armed) {
-    Serial.println("Cannot disarm an already disarmed thing!");
+    return;
   }
   else {
     for (int i = 0; i < 6; i++) {
       servos[i].detach();
     }
     armed = false;
-    Serial.println("disarmed");
   }
 }
 
 void write_pwm(int speeds[6]) {
   if (!armed) {
-    Serial.print("Cannot write when not armed");
     return;
   }
   for (int i = 0; i < 6; i++) {
@@ -55,45 +51,45 @@ void write_pwm(int speeds[6]) {
     }
     servos[i].writeMicroseconds(speeds[i]);
   }
-  Serial.println("write");
 }
 
 void read_serial() {
-  byte inputSize = Serial.readBytes(input, INPUT_SIZE);
-  Serial.println(input);
-  input[inputSize] = 0;
-
-  char *tmp;
-  int i = 0;
-  tmp = strtok(input, ",");
-  while (tmp) {
-    new_info[i++] = atoi(tmp);
-    tmp = strtok(NULL, ",");
-  }
+  byte new_bytes[];
+  int data_length = Serial.readBytes(new_bytes,14);
+   if (data_length > 0) {
+    new_data[0] = new_bytes[0];
+    for(int i = 1; i < sizeof(new_bytes); i = i + 2) {
+      new_data[i] = normal_pwm[i] + (int(new_bytes[i])<<8) + int(new_bytes[i+1]);
+    }
+   }
+   else {
+    // ERROR
+    delay(10)
+   }
+   memset(new_data, 0, sizeof(new_bytes));   // Clear contents of Buffer
+   Serial.flush();
 }
 
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(19200);
-  arm();
 }
 
 void loop() {
   if (Serial.available() > 0) {
     current_time = 0;
     read_serial();
-    if (new_info[0] > 10 && armed) {
-      write_pwm(new_info);
+    if (new_data[0] > 10 && armed) {
+      write_pwm(new_data);
     }
-    else if (new_info[0] == 1 && !armed) {
+    else if (new_data[0] == 5 && !armed) {
       arm();
     }
-    else if (new_info[0] == 0 && armed) {
+    else if (new_data[0] == 6 && armed) {
       disarm();
     }
     else {
-      Serial.print("bad serial comm");
       delay(1000);
     }
   }

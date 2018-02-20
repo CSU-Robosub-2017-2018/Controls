@@ -13,14 +13,11 @@ class MotorController:
 
     def __init__(self, serialDevice):
         self.serialDevice = serialDevice
-        self.data = bytearray(14)
-
-    def get_armed(self):
-        return self.armed
+        self.data = {6, 1500, 1500, 1500, 1500, 1500, 1500}
 
     def arm(self):
         if not self.armed:
-            self.data = int(5).to_bytes(14,'little')
+            self.data = {5, 1500, 1500, 1500, 1500, 1500, 1500}
             self.serialDevice.write()
             self.armed = True
             self.thread = threading.Thread(target=self.update, args=())
@@ -29,27 +26,27 @@ class MotorController:
 
     def disarm(self):
         if self.armed:
-            self.data = int(6).to_bytes(14,'little')
+            self.data = {6, 1500, 1500, 1500, 1500, 1500, 1500}
             self.serialDevice.write()
             self.armed = False
 
     def update(self):
         while self.armed:
-            self.data[0] = int(3).to_bytes(1,'big')
             self.write()
             time.sleep(.25)
 
     def set_speed(self, axis, speed0, speed1):
         if self.armed:
-            speed0 = int(speed0).to_bytes(2,'big')
-            speed1 = int(speed1).to_bytes(2,'big')
-            
-
+            self.data[2 * axis + 1] = speed0
+            self.data[2 * axis + 2] = speed1
 
     def write(self):
         try:
-            self.serialDevice.write(self.data)
-            if not self.serialDevice.read() == input:
+            s = str(self.data[0])
+            for i in range(1, len(self.data)):
+                s += "," + str(self.data)
+            self.serialDevice.write(s)
+            if not self.serialDevice.read() == s:
                 print("[ERROR] values may not have written properly!")
         except:
             print("[ERROR] serial write failed!")
