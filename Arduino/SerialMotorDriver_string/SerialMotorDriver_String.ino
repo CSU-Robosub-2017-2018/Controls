@@ -1,12 +1,12 @@
 #include <Servo.h>
 
 Servo servos[6];
-const int servo_pins[] = {3,5,6,9,10,11} //Uno
-//const int servo_pins[] = {2,3,4,5,6,7} //Mega
-unsigned int new_info[6];
-const int normal_pwm[] = {1500, 1500, 1500, 1500, 1500, 1500};
+//const int servo_pins[] = {3,5,6,9,10,11}; //Uno
+const int servo_pins[] = {2,3,4,5,6,7}; //Mega
+int new_info[] = {0, 1500, 1500, 1500, 1500, 1500, 1500};
+const int normal_pwm[] = {0, 1500, 1500, 1500, 1500, 1500, 1500};
 const int max_pwm = 2000;
-const int min_pwm = 1000;
+const int min_pwm = 1000; 
 
 const int INPUT_SIZE = 31;
 char input[INPUT_SIZE + 1];
