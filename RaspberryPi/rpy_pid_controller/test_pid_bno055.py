@@ -1,5 +1,5 @@
-from devices.BNO055 import BNO055
-from pid.pid_controller_bno055 import pid_controller
+from RaspberryPi.rpy_pid_controller.devices.BNO055 import BNO055
+from RaspberryPi.rpy_pid_controller.pid.pid_controller_bno055 import pid_controller
 import time
 
 imu = BNO055()
