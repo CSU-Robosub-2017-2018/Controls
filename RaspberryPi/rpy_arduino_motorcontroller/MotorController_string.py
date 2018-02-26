@@ -10,6 +10,9 @@ import threading
 class MotorController:
 
     armed = False
+    pwm_norm = 1500
+    pwm_max = 2000
+    pwm_min = 1000
 
     def __init__(self, serialDevice):
         self.serialDevice = serialDevice

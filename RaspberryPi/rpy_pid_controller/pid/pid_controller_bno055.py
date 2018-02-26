@@ -19,6 +19,8 @@ class pid_controller:
         self.axis = axis
         self.vect_type = vect_type
 
+        self.run = False
+
         # PID constants
         self.Kp = 3.0
         self.Ki = 0.001
@@ -56,7 +58,7 @@ class pid_controller:
         self.target_angle = target_angle
 
     def calc_pid(self):
-        while True:
+        while self.run():
             imu_data = self.imu
             current_angle = imu_data.getVector(self.vect_type)[self.axis]
 
@@ -78,12 +80,13 @@ class pid_controller:
             time.sleep(self.update_rate)
 
     def run(self):
+        self.run = True
         self.thread = threading.Thread(target=self.calc_pid, args=())
         self.thread.daemon = True  # Daemonize thread
         self.thread.start()  # Start the execution
 
     def stop(self):
-        return "stop"
+        self.run = False
 
     def get_pid(self):
         return self.pid

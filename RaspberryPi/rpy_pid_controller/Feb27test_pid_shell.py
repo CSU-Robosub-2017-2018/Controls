@@ -26,3 +26,8 @@ class pid_wrapper:
         self.pid_pitch.run()
         self.pid_roll.run()
         self.pid_yaw.run()
+
+    def stop(self):
+        self.pid_pitch.stop()
+        self.pid_roll.stop()
+        self.pid_yaw.stop()
