@@ -82,8 +82,8 @@ print("Motors Armed")
 
 try:
     while True:
-        motors.set_speed(0,1400,1600)
-        motors.set_speed(1,1600,1400)
+        motors.set_speed(0, 1400, 1600)
+        motors.set_speed(1, 1600, 1400)
         motors.set_speed(2, 1400, 1600)
         time.sleep(2)
         motors.clear()
