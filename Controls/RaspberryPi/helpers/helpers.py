@@ -1,7 +1,7 @@
 import serial
 import serial.tools.list_ports
 
-def find_arduino():
+def find_arduinos():
     """
     https://stackoverflow.com/questions/24214643/python-to-automatically-select-serial-ports-for-arduino
     :return: ports that are registered to an arduino
