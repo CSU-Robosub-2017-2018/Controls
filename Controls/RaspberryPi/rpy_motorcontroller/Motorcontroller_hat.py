@@ -23,7 +23,14 @@ class MotorController:
         return pulse_length
 
     def get_bit(self, microsecond):
-        bit = int(round(microsecond / self.pulse_per_bit))
+        #320 = 1500us
+        #425 = 2000us
+        #213 = 1000us
+        if microsecond > 1560 and microsecond < 2000:
+            bit = ((microsecond - 1500) / 500) * 105 + 320
+        else:
+            bit = 320
+        #bit = int(round(microsecond / self.pulse_per_bit))
         print("MS: " + str(microsecond) + " => bit:" + str(bit))
         return bit
 
