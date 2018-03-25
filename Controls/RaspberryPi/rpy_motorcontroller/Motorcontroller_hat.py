@@ -24,15 +24,33 @@ class MotorController:
         pwm.set_all_pwm(0, self.get_pulse(pulse))
 
     def arm(self):
+        print("Arm")
         self.set_all_servo_pulse(1500)
         self.armed = True
 
     def disarm(self):
+        print("Disarm")
         self.set_all_servo_pulse(0)
         self.armed = False
 
     def write(self, axis, pulse0, pulse1):
+        print("Write")
         if self.armed:
             self.set_servo_pulse(2 * axis, pulse0)
             self.set_servo_pulse(2 * axis + 1, pulse1)
 
+
+motors = MotorController()
+motors.arm()
+
+try:
+    while True:
+        motors.write(1, 1500, 1600)
+        motors.write(0, 2000, 1200)
+        motors.write(2, 1000, 2000)
+        sleep(2)
+        motors.arm()
+        sleep(2)
+
+finally:
+    motors.disarm()
