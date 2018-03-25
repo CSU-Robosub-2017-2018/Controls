@@ -1,6 +1,6 @@
 import sys
-sys.path.append("~/Github/Adafruit_PCA9685")
-import Adafruit_PCA9685 as pwm
+sys.path.append("~/Github/Adafruit_Python_PCA9685/Adafruit_PCA9685")
+from PCA9685 import PCA9685 as pwm
 from time import sleep
 
 class MotorController:
