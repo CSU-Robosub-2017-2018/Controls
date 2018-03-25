@@ -41,19 +41,3 @@ class MotorController:
         if self.armed:
             self.set_servo_pulse(2 * axis, pulse0)
             self.set_servo_pulse(2 * axis + 1, pulse1)
-
-
-motors = MotorController()
-motors.arm()
-
-try:
-    while True:
-        motors.write(1, 1500, 1600)
-        motors.write(0, 2000, 1200)
-        motors.write(2, 1000, 2000)
-        sleep(2)
-        motors.arm()
-        sleep(2)
-
-finally:
-    motors.disarm()
