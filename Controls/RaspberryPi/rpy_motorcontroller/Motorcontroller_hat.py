@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/pi/Github/Adafruit_Python_PCA9685/Adafruit_PCA9685")
+sys.path.append("/home/pi/Github/Adafruit_Python_PCA9685")
 import Adafruit_PCA9685 as pwm
 from time import sleep
 
