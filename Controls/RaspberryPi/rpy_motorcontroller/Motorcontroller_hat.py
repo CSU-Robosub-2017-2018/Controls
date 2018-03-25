@@ -1,3 +1,5 @@
+import sys
+sys.path.append("~/Github/Adafruit_PCA9685")
 import Adafruit_PCA9685 as pwm
 from time import sleep
 
