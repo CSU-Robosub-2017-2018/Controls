@@ -1,4 +1,5 @@
 import sys
+sys.path.append("/home/pi/Github/Adafruit_Python_PCA9685/Adafruit_PCA9685")
 from Adafruit_PCA9685 import PCA9685
 from time import sleep
 
