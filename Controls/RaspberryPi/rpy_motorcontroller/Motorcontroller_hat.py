@@ -16,9 +16,9 @@ class MotorController:
     def get_ppb(self, freq):
         self.pwm.set_pwm_freq(freq)
         pulse_length = 1000000.0  # 1,000,000 us per second
-        pulse_length //= freq
+        pulse_length = pulse_length / freq
         print(str(pulse_length) + "us per period")
-        pulse_length //= 4096  # 12 bits of resolution
+        pulse_length = pulse_length / 4096  # 12 bits of resolution
         print(str(pulse_length) + "us per bit")
         return pulse_length
 
