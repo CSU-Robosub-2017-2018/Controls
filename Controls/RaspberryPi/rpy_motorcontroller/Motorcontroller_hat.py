@@ -37,7 +37,9 @@ class MotorController:
         #320 = 1500us
         #425 = 2000us
         #213 = 1000us
-        if microsecond >= self.max_us:
+        if microsecond == 0:
+            bit = 0
+        elif microsecond >= self.max_us:
             bit = self.max_bit
         elif microsecond <= self.min_us:
             bit = self.min_bit
@@ -45,8 +47,6 @@ class MotorController:
             bit = self.map(microsecond, self.dead_us, self.max_us, self.dead_bit, self.max_bit)
         elif microsecond > self.min_us and microsecond < self.dead_us-50:
             bit = self.map(microsecond, self.min_us, self.dead_us, self.min_bit, self.dead_bit)
-        elif microsecond == 0:
-            bit = 0
         else:
             bit = 320
         #bit = int(round(microsecond / self.pulse_per_bit))
