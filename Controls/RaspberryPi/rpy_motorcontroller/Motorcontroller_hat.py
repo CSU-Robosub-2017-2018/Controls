@@ -20,10 +20,10 @@ class MotorController:
         print('{0}us per period'.format(pulse_length))
         pulse_length //= 4096  # 12 bits of resolution
         print('{0}us per bit'.format(pulse_length))
-        return int(pulse_length)
+        return int(round(pulse_length))
 
     def get_bit(self, microsecond):
-        bit = int(microsecond / self.pulse_per_bit)
+        bit = int(round(microsecond / self.pulse_per_bit))
         print("MS: " + str(microsecond) + " => bit:" + str(bit))
         return bit
 
@@ -46,5 +46,5 @@ class MotorController:
     def write(self, axis, ms0, ms1):
         print("Write")
         if self.armed:
-            self.set_servo_pulse(2 * axis, ms0)
-            self.set_servo_pulse(2 * axis + 1, ms1)
+            self.set_microseconds(2 * axis, ms0)
+            self.set_microseconds(2 * axis + 1, ms1)
