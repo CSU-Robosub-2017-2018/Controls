@@ -32,7 +32,7 @@ class MotorController:
             bit = 320
         #bit = int(round(microsecond / self.pulse_per_bit))
         print("MS: " + str(microsecond) + " => bit:" + str(bit))
-        return bit
+        return int(round(bit))
 
     def set_microseconds(self, channel, microsecond):
         self.pwm.set_pwm(channel, 0, self.get_bit(microsecond))
