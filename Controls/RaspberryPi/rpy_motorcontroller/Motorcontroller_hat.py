@@ -1,4 +1,7 @@
 import sys
+import os
+path = os.path
+print(path)
 sys.path.append("~/Github/Adafruit_Python_PCA9685/Adafruit_PCA9685")
 import Adafruit_PCA9685 as pwm
 from time import sleep
