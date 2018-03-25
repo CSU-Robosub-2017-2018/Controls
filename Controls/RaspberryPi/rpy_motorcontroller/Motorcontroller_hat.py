@@ -1,12 +1,12 @@
 import sys
-sys.path.append("/home/pi/Github/Adafruit_Python_PCA9685")
-import Adafruit_PCA9685.PCA9685 as pwm
+from Adafruit_PCA9685 import PCA9685
 from time import sleep
 
 class MotorController:
 
     def __init__(self):
-        pwm.set_pwm_freq(50)
+        self.pwm = PCA9685()
+        self.pwm.set_pwm_freq(50)
         self.armed = False
 
     def get_pulse(self, pulse):
@@ -20,10 +20,10 @@ class MotorController:
         return pulse
 
     def set_servo_pulse(self, channel, pulse):
-        pwm.set_pwm(channel, 0, self.get_pulse(pulse))
+        self.pwm.set_pwm(channel, 0, self.get_pulse(pulse))
 
     def set_all_servo_pulse(self, pulse):
-        pwm.set_all_pwm(0, self.get_pulse(pulse))
+        self.pwm.set_all_pwm(0, self.get_pulse(pulse))
 
     def arm(self):
         print("Arm")
