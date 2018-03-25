@@ -20,10 +20,11 @@ class MotorController:
         print('{0}us per period'.format(pulse_length))
         pulse_length //= 4096  # 12 bits of resolution
         print('{0}us per bit'.format(pulse_length))
-        return pulse_length
+        return int(pulse_length)
 
     def get_bit(self, microsecond):
-        return microsecond / self.pulse_per_bit
+        ret = int(microsecond / self.pulse_per_bit)
+        return ret
 
     def set_microseconds(self, channel, microsecond):
         self.pwm.set_pwm(channel, 0, self.get_bit(microsecond))
