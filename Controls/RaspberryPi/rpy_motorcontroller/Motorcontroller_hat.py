@@ -6,7 +6,7 @@ from time import sleep
 class MotorController:
 
     armed = False
-    frequency = 60
+    frequency = 50
 
     def __init__(self, ):
         self.pwm = Adafruit_PCA9685.PCA9685()
@@ -31,7 +31,8 @@ class MotorController:
         self.pwm.set_pwm(channel, 0, self.get_bit(microsecond))
 
     def set_all_microseconds(self, microsecond):
-        self.pwm.set_all_pwm(0, self.get_bit(microsecond))
+        for i in range(0, 6):
+            self.pwm.set_pwm(i, 0, self.get_bit(microsecond))
 
     def arm(self):
         print("Arm")

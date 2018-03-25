@@ -1,12 +1,14 @@
+import sys
+sys.path.append("/home/pi/Github/Controls")
 from RaspberryPi.rpy_pid_controller.Feb27test_pid_shell import pid_wrapper
-from RaspberryPi.rpy_arduino_motorcontroller.MotorController_string import MotorController
+from RaspberryPi.rpy_arduino_motorcontroller.MotorController_hat import MotorController
 from RaspberryPi.rpy_pid_controller.devices.mpu6050 import mpu6050
 from RaspberryPi.helpers import helpers
 from serial import Serial
 from time import sleep
 
 
-imu = mpu6050(0x68)
+imu = mpu6050(0x69)
 pid = pid_wrapper(imu)
 
 serial = Serial(helpers.find_arduino()[0])
