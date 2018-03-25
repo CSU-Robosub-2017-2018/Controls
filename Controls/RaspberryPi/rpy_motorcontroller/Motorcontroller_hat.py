@@ -30,7 +30,7 @@ class MotorController:
         print(str(pulse_length) + "us per bit")
         return pulse_length
 
-    def map(x, in_min, in_max, out_min, out_max):
+    def map(self, x, in_min, in_max, out_min, out_max):
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
     def get_bit(self, microsecond):
@@ -48,7 +48,7 @@ class MotorController:
         else:
             bit = 320
         #bit = int(round(microsecond / self.pulse_per_bit))
-        print("MS: " + str(microsecond) + " => bit:" + str(bit))
+        print("us: " + str(microsecond) + " => bit:" + str(bit))
         return int(round(bit))
 
     def set_microseconds(self, channel, microsecond):
