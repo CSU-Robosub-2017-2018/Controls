@@ -1,7 +1,10 @@
-import sys
-#sys.path.append("/home/pi/Github/Adafruit_Python_PCA9685")
+"""
+Author: Nicholas Baron 830278807
+Date: 3/25/2018
+Description:
+"""
+
 import Adafruit_PCA9685
-from time import sleep
 
 class MotorController:
 
