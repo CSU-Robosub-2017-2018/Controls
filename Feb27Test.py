@@ -14,7 +14,7 @@ pid = pid_wrapper(imu)
 serial = Serial(helpers.find_arduino()[0])
 motors = MotorController(serial)
 
-targets = {0,0} #FIXME Need Correct target angles and correct orientation yaw angle.
+targets = [0, 0] #FIXME Need Correct target angles and correct orientation yaw angle.
 pid.set_targets(targets)
 pid.run()
 
