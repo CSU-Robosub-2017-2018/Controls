@@ -3,7 +3,8 @@ Author: Nicholas Baron 830278807
 Date: 3/25/2018
 Description:
 """
-
+import sys
+sys.path.append("/home/nick/python_driver/Adafruit_Python_PCA9685")
 import Adafruit_PCA9685
 
 class MotorController:
