@@ -9,7 +9,7 @@ from serial import Serial
 from time import sleep
 
 
-imu = mpu6050(0x69)
+imu = mpu6050(0x68)
 pid = pid_wrapper(imu)
 
 serial = Serial(helpers.find_arduino()[0])
