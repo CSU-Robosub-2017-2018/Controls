@@ -16,9 +16,9 @@ class MotorController:
     max_bit = 425
     min_bit = 213
 
-    dead_us = 1500
-    max_us = 2000
-    min_us = 1000
+    pwm_norm = 1500
+    pwm_max = 2000
+    pwm_min = 1000
 
     def __init__(self, ):
         self.pwm = Adafruit_PCA9685.PCA9685()
@@ -43,14 +43,14 @@ class MotorController:
         #213 = 1000us
         if microsecond == 0:
             bit = 0
-        elif microsecond >= self.max_us:
+        elif microsecond >= self.pwm_max:
             bit = self.max_bit
-        elif microsecond <= self.min_us:
+        elif microsecond <= self.pwm_min:
             bit = self.min_bit
-        elif microsecond > self.dead_us+50 and microsecond < self.max_us:
-            bit = self.map(microsecond, self.dead_us, self.max_us, self.dead_bit, self.max_bit)
-        elif microsecond > self.min_us and microsecond < self.dead_us-50:
-            bit = self.map(microsecond, self.min_us, self.dead_us, self.min_bit, self.dead_bit)
+        elif microsecond > self.pwm_norm+50 and microsecond < self.pwm_max:
+            bit = self.map(microsecond, self.pwm_norm, self.pwm_max, self.dead_bit, self.max_bit)
+        elif microsecond > self.pwm_min and microsecond < self.pwm_norm-50:
+            bit = self.map(microsecond, self.pwm_min, self.pwm_norm, self.min_bit, self.dead_bit)
         else:
             bit = 320
         #bit = int(round(microsecond / self.pulse_per_bit))

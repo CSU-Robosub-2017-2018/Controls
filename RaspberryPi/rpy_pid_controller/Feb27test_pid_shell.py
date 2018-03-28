@@ -9,7 +9,7 @@ class pid_wrapper:
         self.pid_roll = pid_controller(mpu, 'y', 'z')
 
     def get_pid(self):
-        return {self.pid_pitch.get_pid(), self.pid_roll.get_pid()}
+        return [self.pid_pitch.get_pid(), self.pid_roll.get_pid()]
 
     def set_targets(self, targets):
         self.pid_pitch.set_target_angle(targets[0])
