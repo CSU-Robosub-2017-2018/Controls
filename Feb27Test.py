@@ -4,16 +4,13 @@ print(str(sys.path))
 from RaspberryPi.rpy_pid_controller.Feb27test_pid_shell import pid_wrapper
 from RaspberryPi.rpy_motorcontroller.MotorController_hat import MotorController
 from RaspberryPi.rpy_pid_controller.devices.mpu6050 import mpu6050
-from RaspberryPi.helpers import helpers
-from serial import Serial
 from time import sleep
 
 
 imu = mpu6050(0x68)
 pid = pid_wrapper(imu)
 
-serial = Serial(helpers.find_arduinos()[0])
-motors = MotorController(serial)
+motors = MotorController()
 
 targets = {0,0} #FIXME Need Correct target angles and correct orientation yaw angle.
 pid.set_targets(targets)

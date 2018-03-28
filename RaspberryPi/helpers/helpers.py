@@ -12,7 +12,7 @@ def find_arduinos():
         if 'Arduino' in p.description
     ]
     if not arduino_ports:
-        raise IOError("No Arduino found")
+        raise IOError("No Arduinos found")
     return arduino_ports
 
 def find_serial_num(serial_number):
