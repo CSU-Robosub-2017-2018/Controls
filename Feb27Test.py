@@ -1,5 +1,6 @@
 import sys
 sys.path.append("\\home\\nick\\Github\\Controls\\RaspberryPi")
+print(str(sys.path))
 from RaspberryPi.rpy_pid_controller.Feb27test_pid_shell import pid_wrapper
 from RaspberryPi.rpy_arduino_motorcontroller.MotorController_hat import MotorController
 from RaspberryPi.rpy_pid_controller.devices.mpu6050 import mpu6050
