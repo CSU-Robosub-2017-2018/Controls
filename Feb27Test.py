@@ -12,7 +12,7 @@ from time import sleep
 imu = mpu6050(0x68)
 pid = pid_wrapper(imu)
 
-serial = Serial(helpers.find_arduino()[0])
+serial = Serial(helpers.find_arduinos()[0])
 motors = MotorController(serial)
 
 targets = {0,0} #FIXME Need Correct target angles and correct orientation yaw angle.
