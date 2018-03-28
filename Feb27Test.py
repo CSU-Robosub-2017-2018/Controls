@@ -22,7 +22,7 @@ try:
             if imu.get_accel_data()['z'] < -8: #FIXME add ability to be within range.
                 motors.arm()
                 print("armed")
-                sleep(10)
+                sleep(5)
             sleep(0.25)
 
         while motors.armed:
@@ -30,6 +30,7 @@ try:
             if imu.get_accel_data()['z'] < -8:
                 motors.disarm()
                 print("disarmed")
+                sleep(5)
             else:
                 pidNum = pid.get_pid()
                 for i in range(0, len(pidNum)):
