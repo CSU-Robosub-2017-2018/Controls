@@ -17,7 +17,7 @@ pid.set_targets(targets)
 pid.run()
 
 try:
-    while not motors.armed():
+    while not motors.armed:
         if imu.get_accel_data()['x'] == abs(360-targets[0]): #FIXME add ability to be within range.
             motors.arm()
             print("armed")
