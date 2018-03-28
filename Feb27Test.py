@@ -19,14 +19,14 @@ pid.run()
 try:
     while not motors.armed:
         print(str(imu.get_accel_data()))
-        if imu.get_accel_data()['x'] == abs(360-targets[0]): #FIXME add ability to be within range.
+        if imu.get_accel_data()['z'] < -8: #FIXME add ability to be within range.
             motors.arm()
             print("armed")
             sleep(10)
 
     while motors.armed:
         print(str(imu.get_accel_data()))
-        if imu.get_accel_data()['x'] == abs(360-targets[0]):
+        if imu.get_accel_data()['z'] < -8:
             motors.disarm()
             print("disarmed")
         else:
