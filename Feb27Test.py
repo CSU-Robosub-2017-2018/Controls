@@ -18,12 +18,14 @@ pid.run()
 
 try:
     while not motors.armed:
+        print(str(imu.get_accel_data()['x']))
         if imu.get_accel_data()['x'] == abs(360-targets[0]): #FIXME add ability to be within range.
             motors.arm()
             print("armed")
             sleep(10)
 
-    while motors.armed():
+    while motors.armed:
+        print(str(imu.get_accel_data()['x']))
         if imu.get_accel_data()['x'] == abs(360-targets[0]):
             motors.disarm()
             print("disarmed")
@@ -34,7 +36,7 @@ try:
                     pidNum[i] = motors.pwm_max-motors.pwm_norm
                 elif pidNum[i] < motors.pwm_min-motors.pwm_norm:
                     pidNum[i] = motors.pwm_min-motors.pwm_norm
-                motors.write(i,motors.pwm_norm+pidNum[i], motors.pwm_norm-pidNum[i])
+                motors.write(i, motors.pwm_norm+pidNum[i], motors.pwm_norm-pidNum[i])
         sleep(0.25)
 
 finally:
