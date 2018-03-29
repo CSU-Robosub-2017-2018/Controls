@@ -1,6 +1,7 @@
 import sys
 sys.path.append("/home/nick/github/Controls/RaspberryPi/")
-sys.path.append("/home/nick/github/Datalogger")
+sys.path.append("/home/nick/github/Datalogger/")
+print(sys.path)
 from RaspberryPi.rpy_pid_controller.Feb27test_pid_shell import pid_wrapper
 from RaspberryPi.rpy_motorcontroller.MotorController_hat import MotorController
 from RaspberryPi.rpy_pid_controller.devices.mpu6050 import mpu6050
