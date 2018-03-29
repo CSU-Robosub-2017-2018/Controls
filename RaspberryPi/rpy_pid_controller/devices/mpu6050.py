@@ -58,6 +58,7 @@ class mpu6050:
         self.bus = smbus.SMBus(bus)
         # Wake up the MPU-6050 since it starts in sleep mode
         self.bus.write_byte_data(self.address, self.PWR_MGMT_1, 0x00)
+        self.headers = ['x', 'y', 'z']
 
     # I2C communication methods
 
@@ -166,6 +167,12 @@ class mpu6050:
             y = y * self.GRAVITIY_MS2
             z = z * self.GRAVITIY_MS2
             return {'x': x, 'y': y, 'z': z}
+
+    def get_headers(self):
+        return self.headers
+
+    def get_data(self):
+        return [str(self.get_accel_data()['x']), str(self.get_accel_data()['y']), str(self.get_accel_data()['z'])]
 
     def set_gyro_range(self, gyro_range):
         """Sets the range of the gyroscope to range.

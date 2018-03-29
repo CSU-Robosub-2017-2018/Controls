@@ -4,17 +4,26 @@ sys.path.append("/home/nick/Github/DataLogger")
 from RaspberryPi.rpy_pid_controller.Feb27test_pid_shell import pid_wrapper
 from RaspberryPi.rpy_motorcontroller.MotorController_hat import MotorController
 from RaspberryPi.rpy_pid_controller.devices.mpu6050 import mpu6050
+from DataLogger.DataLogger import DataLogger
+from DataLogger.writers.csv import csv
 from time import sleep
 
 
+writer = csv('Mar28')
+logger = DataLogger(writer)
+
 imu = mpu6050(0x68)
 pid = pid_wrapper(imu)
-
 motors = MotorController()
+
+logger.add_device(imu)
+logger.add_device(pid)
+logger.add_device(motors)
 
 targets = [0, 0] #FIXME Need Correct target angles and correct orientation yaw angle.
 pid.set_targets(targets)
 pid.run()
+logger.start()
 
 try:
     while True:

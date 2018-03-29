@@ -24,6 +24,8 @@ class MotorController:
         self.pwm = Adafruit_PCA9685.PCA9685()
         self.pwm.set_pwm_freq(self.frequency)
         self.pulse_per_bit = self.get_ppb(self.frequency)
+        self.headers = ["x1", "x2", "y1", "y2", "z1", "z2"]
+        self.data = [0, 0, 0, 0, 0, 0]
 
     def get_ppb(self, freq):
         self.pwm.set_pwm_freq(freq)
@@ -58,11 +60,16 @@ class MotorController:
         return int(round(bit))
 
     def set_microseconds(self, channel, microsecond):
+        self.data[channel] = microsecond
         self.pwm.set_pwm(channel, 0, self.get_bit(microsecond))
 
     def set_all_microseconds(self, microsecond):
         for i in range(0, 6):
+            self.data[i] = microsecond
             self.pwm.set_pwm(i, 0, self.get_bit(microsecond))
+
+    def get_data(self):
+        return self.data
 
     def arm(self):
         print("Arm")

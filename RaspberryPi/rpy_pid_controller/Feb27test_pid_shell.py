@@ -7,6 +7,14 @@ class pid_wrapper:
     def __init__(self, mpu):
         self.pid_pitch = pid_controller(mpu, 'x', 'z')
         self.pid_roll = pid_controller(mpu, 'y', 'z')
+        self.headers = ["Pitch_PID", "Roll_PID"]
+        self.data = []
+
+    def get_headers(self):
+        return self.headers
+
+    def get_data(self):
+        return [str(self.pid_pitch.get_pid()), str(self.pid_roll.get_pid())]
 
     def get_pid(self):
         return [self.pid_pitch.get_pid(), self.pid_roll.get_pid()]
