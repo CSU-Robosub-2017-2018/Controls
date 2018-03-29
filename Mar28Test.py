@@ -53,5 +53,6 @@ try:
             sleep(0.25)
 
 finally:
+    logger.end()
     pid.stop()
     motors.disarm()
