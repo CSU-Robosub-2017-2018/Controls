@@ -68,6 +68,9 @@ class MotorController:
             self.data[i] = microsecond
             self.pwm.set_pwm(i, 0, self.get_bit(microsecond))
 
+    def get_headers(self):
+        return self.headers
+
     def get_data(self):
         return self.data
 
