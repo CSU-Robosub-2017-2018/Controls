@@ -72,7 +72,8 @@ class MotorController:
         return self.headers
 
     def get_data(self):
-        return self.data
+        return [str(self.data[0]), str(self.data[0]), str(self.data[1]), str(self.data[2]), str(self.data[3]),
+                str(self.data[4]), str(self.data[5])]
 
     def arm(self):
         print("Arm")
