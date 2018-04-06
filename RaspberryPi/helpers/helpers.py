@@ -25,3 +25,6 @@ def find_serial_num(serial_number):
         if pinfo.serial_number == serial_number:
             return serial.Serial(pinfo.device)
     raise IOError("Could not find an desired serial number - is it plugged in?")
+
+def map(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min

@@ -5,7 +5,9 @@ Description:
 """
 import sys
 sys.path.append("/home/nick/python_driver/Adafruit_Python_PCA9685")
+sys.path.append("/home/nick/github/Controls/RaspberryPi/")
 import Adafruit_PCA9685
+from RaspberryPi.helpers.helpers import map
 
 class MotorController:
 
@@ -20,7 +22,9 @@ class MotorController:
     pwm_max = 2000
     pwm_min = 1000
 
-    def __init__(self, ):
+    act_num = 50 #the number of us off norm for the class to start writing information to the hat. Default 50 (same as dead band for esc)
+
+    def __init__(self):
         self.pwm = Adafruit_PCA9685.PCA9685()
         self.pwm.set_pwm_freq(self.frequency)
         self.pulse_per_bit = self.get_ppb(self.frequency)
@@ -36,9 +40,6 @@ class MotorController:
         print(str(pulse_length) + "us per bit")
         return pulse_length
 
-    def map(self, x, in_min, in_max, out_min, out_max):
-        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
-
     def get_bit(self, microsecond):
         #320 = 1500us
         #425 = 2000us
@@ -49,15 +50,20 @@ class MotorController:
             bit = self.max_bit
         elif microsecond <= self.pwm_min:
             bit = self.min_bit
-        elif microsecond > self.pwm_norm+50 and microsecond < self.pwm_max:
-            bit = self.map(microsecond, self.pwm_norm, self.pwm_max, self.dead_bit, self.max_bit)
-        elif microsecond > self.pwm_min and microsecond < self.pwm_norm-50:
-            bit = self.map(microsecond, self.pwm_min, self.pwm_norm, self.min_bit, self.dead_bit)
+        elif microsecond > self.pwm_norm+self.act_num and microsecond < self.pwm_max:
+            bit = map(microsecond, self.pwm_norm, self.pwm_max, self.dead_bit, self.max_bit)
+        elif microsecond > self.pwm_min and microsecond < self.pwm_norm-self.act_num:
+            bit = map(microsecond, self.pwm_min, self.pwm_norm, self.min_bit, self.dead_bit)
         else:
             bit = 320
         #bit = int(round(microsecond / self.pulse_per_bit))
         print("us: " + str(microsecond) + " => bit:" + str(bit))
         return int(round(bit))
+
+    def set_batch_microseconds(self, us_array):
+        self.data = us_array
+        for i in range(0, 6):
+            self.pwm.set_pwm(i, 0, us_array[i])
 
     def set_microseconds(self, channel, microsecond):
         self.data[channel] = microsecond
@@ -72,8 +78,11 @@ class MotorController:
         return self.headers
 
     def get_data(self):
-        return [str(self.data[0]), str(self.data[0]), str(self.data[1]), str(self.data[2]), str(self.data[3]),
+        return [str(self.data[0]), str(self.data[1]), str(self.data[2]), str(self.data[3]),
                 str(self.data[4]), str(self.data[5])]
+
+    def get_speeds(self):
+        return self.data
 
     def arm(self):
         print("Arm")
