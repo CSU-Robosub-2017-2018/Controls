@@ -1,6 +1,7 @@
 """
-Author: Nick Baron 2/1/2018
-Description:
+Author: Nick Baron
+Date: 2/1/2018
+Description: This class is a PID contrller designed to be used with the MPU6050 class. It will run based on the accelerometer values that are converted into angles internally.
 """
 
 import math
@@ -37,24 +38,56 @@ class pid_controller:
         self.pid = 0
 
     def set_Kp(self, Kp):
+        """
+        Sets the proportional gain of the controller.
+        :param Kp: The proportional gain.
+        :return: Nothing
+        """
         self.Kp = Kp
 
     def set_Ki(self, Ki):
+        """
+        Sets the integral gain of the pid controller.
+        :param Ki: The integral gain.
+        :return:
+        """
         self.Ki = Ki
 
     def set_Kd(self, Kd):
+        """
+        Sets the derivative gain of the controller.
+        :param Kd: The derivative gain.
+        :return: Nothing.
+        """
         self.Kd = Kd
 
     def get_Kp(self):
+        """
+        Returns the current proportional gain of the controller.
+        :return: The current proportional gain.
+        """
         return self.Kp
 
     def get_Ki(self):
+        """
+        Returns the current integral gain of the controller.
+        :return: The current integral gain.
+        """
         return self.Ki
 
     def get_Kd(self):
+        """
+        Returns the current derivative gain of the controller.
+        :return: The current derivative gain.
+        """
         return self.Kd
 
     def set_target_angle(self, target_angle=0):
+        """
+        This sets the target angle that the pid controller is trying to achieve.
+        :param target_angle: Angle in degrees.
+        :return: Nothing
+        """
         self.target_angle = target_angle
 
     def calc_pid(self):
@@ -80,15 +113,27 @@ class pid_controller:
             time.sleep(self.update_rate)
 
     def run(self):
+        """
+        This is the command that tells the pid to start running. This causes a new thread to be made which updates the pid in the background.
+        :return: Nothing
+        """
         self.running = True
         self.thread = threading.Thread(target=self.calc_pid, args=())
         self.thread.daemon = True  # Daemonize thread
         self.thread.start()  # Start the execution
 
     def stop(self):
+        """
+        This tells the PID thread to stop running.
+        :return: Nothing
+        """
         self.running = False
 
     def get_pid(self):
+        """
+        Gets the current pid value.
+        :return: The PID value.
+        """
         return self.pid
 
 

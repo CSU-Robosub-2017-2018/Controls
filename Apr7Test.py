@@ -1,3 +1,9 @@
+"""
+Author: Nick Baron
+Date: 3/28/2018
+Description: This is the main script that controls and initializes all systems for the sub during the apr 7th sub test.
+"""
+
 import sys
 sys.path.append("/home/nick/github/Controls/RaspberryPi/")
 sys.path.append("/home/nick/github/Datalogger/")

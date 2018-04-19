@@ -1,3 +1,9 @@
+"""
+Author: Nick Baron
+Date: 3/22/2018
+Description: This is a test class for a game controller using the inputs librbry. It gets and prints the max and min values of the controller that is being used.
+"""
+
 from inputs import get_gamepad
 
 x = [0,0]
