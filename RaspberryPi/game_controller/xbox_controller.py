@@ -7,7 +7,7 @@ class XboxController:
 
     def __init__(self):
         self.headers = ["XB0","XB1","XB2","XB3","XB4","XB5"]
-        self.data = [0,0,0,0,0,0]
+        self.data = [0, 0, 0, 0, 0, 0]
         self.writing = ["", "", ""]
         self.norm = 0
         self.start_btn = False
@@ -16,6 +16,7 @@ class XboxController:
         self.running = False
         self.joystick_dead = 3000
         self.trigger_dead = 40
+        self.pid = [3, 0.001, 2]
 
     def get_headers(self):
         return self.headers
@@ -42,92 +43,34 @@ class XboxController:
 
                     # Left Stick
                     if event.code == "ABS_Y":
-                        if abs(event.state) > self.joystick_dead and self.writing[2] == "":
-                            self.writing[2] = event.code
-                        elif abs(event.state) < self.joystick_dead and self.writing[2] == event.code:
-                            self.writing[2] = ""
-                        if self.writing[2] == event.code:
-                            if abs(event.state) > self.joystick_dead:
-                                self.data[4] = self.norm + map(event.state, -32768, 32767, 500, -500)
-                                self.data[5] = self.norm + map(event.state, -32768, 32767, 500, -500)
-                            else:
-                                self.data[4] = self.norm
-                                self.data[5] = self.norm
+                        self.handle_joystick(event.code, 2, event.state)
                     elif event.code == "ABS_X":
-                        if abs(event.state) > self.joystick_dead and self.writing[1] == "":
-                            self.writing[1] = event.code
-                        elif abs(event.state) < self.joystick_dead and self.writing[1] == event.code:
-                            self.writing[1] = ""
-                        if self.writing[1] == event.code:
-                            if abs(event.state) > self.joystick_dead:
-                                self.data[2] = self.norm + map(event.state, -32768, 32767, -500, 500)
-                                self.data[3] = self.norm + map(event.state, -32768, 32767, -500, 500)
-                            else:
-                                self.data[2] = self.norm
-                                self.data[3] = self.norm
+                        self.handle_joystick(event.code, 1, -event.state)
                     elif event.code == "BTN_THUMBL":
                         nothing = 0
 
                     # Right Stick
                     elif event.code == "ABS_RY":
-                        if abs(event.state) > self.joystick_dead and self.writing[0] == "":
-                            self.writing[0] = event.code
-                        elif abs(event.state) < self.joystick_dead and self.writing[0] == event.code:
-                            self.writing[0] = ""
-                        if self.writing[0] == event.code:
-                            if abs(event.state) > self.joystick_dead:
-                                self.data[0] = self.norm + map(event.state, -32768, 32767, -500, 500)
-                                self.data[1] = self.norm - map(event.state, -32768, 32767, -500, 500)
-                            else:
-                                self.data[0] = self.norm
-                                self.data[1] = self.norm
+                        self.handle_joystick(event.code, 0, -event.state)
                     elif event.code == "ABS_RX":
-                        if abs(event.state) > self.joystick_dead and self.writing[2] == "":
-                            self.writing[2] = event.code
-                        elif abs(event.state) < self.joystick_dead and self.writing[2] == event.code:
-                            self.writing[2] = ""
-                        if self.writing[2] == event.code:
-                            if abs(event.state) > self.joystick_dead:
-                                self.data[4] = self.norm + map(event.state, -32768, 32767, -500, 500)
-                                self.data[5] = self.norm - map(event.state, -32768, 32767, -500, 500)
-                            else:
-                                self.data[4] = self.norm
-                                self.data[5] = self.norm
+                        self.handle_joystick(event.code, 1, -event.state)
+
                     elif event.code == "BTN_THUMBR":
                         nothing = 0
 
                     # Triggers
                     elif event.code == "ABS_Z":
-                        if abs(event.state) > self.trigger_dead and self.writing[0] == "":
-                            self.writing[0] = event.code
-                        elif abs(event.state) < self.trigger_dead and self.writing[0] == event.code:
-                            self.writing[0] = ""
-                        if self.writing[0] == event.code:
-                            if abs(event.state) > self.trigger_dead:
-                                self.data[0] = self.norm + map(event.state, 0, 255, 0, -500)
-                                self.data[1] = self.norm + map(event.state, 0, 255, 0, -500)
-                            else:
-                                self.data[0] = self.norm
-                                self.data[1] = self.norm
+                        self.handle_trigger(event.code, 0, event.state)
                     elif event.code == "ABS_RZ":
-                        if abs(event.state) > self.trigger_dead and self.writing[0] == "":
-                            self.writing[0] = event.code
-                        elif abs(event.state) < self.trigger_dead and self.writing[0] == event.code:
-                            self.writing[0] = ""
-                        if self.writing[0] == event.code:
-                            if abs(event.state) > self.trigger_dead:
-                                self.data[0] = self.norm + map(event.state, 0, 255, 0, 500)
-                                self.data[1] = self.norm + map(event.state, 0, 255, 0, 500)
-                            else:
-                                self.data[0] = self.norm
-                                self.data[1] = self.norm
+                        self.handle_trigger(event.code, 0, event.state)
 
                     # Bumpers
                     elif event.code == "BTN_TL":
                         if event.state == 1 and self.writing[1] == "":
                             self.writing[1] = event.code
-                            self.data[2] = self.norm + 200
-                            self.data[3] = self.norm - 200
+
+                            self.data[2] = self.norm - 200
+
                         elif event.state == 0 and self.writing[1] == event.code:
                             self.data[2] = self.norm
                             self.data[3] = self.norm
@@ -135,8 +78,10 @@ class XboxController:
                     elif event.code == "BTN_TR":
                         if event.state == 1 and self.writing[1] == "":
                             self.writing[1] = event.code
-                            self.data[2] = self.norm - 200
-                            self.data[3] = self.norm + 200
+
+                            self.data[2] = self.norm + 200
+                            self.data[3] = self.norm - 200
+
                         elif event.state == 0 and self.writing[1] == event.code:
                             self.writing[1] = ""
                             self.data[2] = self.norm
@@ -182,8 +127,14 @@ class XboxController:
     def get_speeds(self):
         return self.data
 
+
+    def get_pid(self):
+        return self.pid
+
     def reset_speeds(self):
         self.data = [0, 0, 0, 0, 0, 0]
+        self.writing = ["", "", ""]
+
 
     def set_armed(self):
         if self.start_btn and self.select_btn:
@@ -193,4 +144,38 @@ class XboxController:
             else:
                 print("Controller Armed")
                 self.armed = True
+
+
+    def handle_joystick(self, code, axis, state):
+        if abs(state) > self.joystick_dead and self.writing[axis] == "":
+            self.writing[axis] = code
+        elif abs(state) < self.joystick_dead and self.writing[axis] == code:
+            self.writing[axis] = ""
+        if self.writing[axis] == code:
+            if abs(state) > self.joystick_dead:
+                value = map(state, -32768, 32767, 500, -500)
+                self.data[2 * axis] = self.norm + value
+                if 'ABS_X' == code or "ABS_RY" == code:
+                    value = -value
+                self.data[2 * axis + 1] = self.norm + value
+            else:
+                self.data[2 * axis] = self.norm
+                self.data[2 * axis + 1] = self.norm
+
+    def handle_trigger(self, code, axis, state):
+        if abs(state) > self.trigger_dead and self.writing[0] == "":
+            self.writing[axis] = code
+        elif abs(state) < self.trigger_dead and self.writing[0] == code:
+            self.writing[axis] = ""
+        if self.writing[axis] == code:
+            if abs(state) > self.trigger_dead:
+                value = map(state, 0, 255, 0, -300)
+                if 'R' in code:
+                    value = -value
+                self.data[2 * axis] = self.norm + value
+                self.data[2 * axis + 1] = self.norm + value
+            else:
+                self.data[2 * axis] = self.norm
+                self.data[2 * axis + 1] = self.norm
+
 

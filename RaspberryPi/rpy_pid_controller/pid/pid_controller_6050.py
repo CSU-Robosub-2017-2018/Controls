@@ -12,6 +12,8 @@ class pid_controller:
 
     def __init__(self, mpu, axis1, axis2, target=0, update_rate=0.5):
 
+        self.running = False
+
         # User Constants
         self.target_angle = target  # degrees
         self.update_rate = update_rate
@@ -20,9 +22,9 @@ class pid_controller:
         self.axis2 = axis2
 
         # PID constants
-        self.Kp = 3.0
+        self.Kp = 2.6
         self.Ki = 0.001
-        self.Kd = 2
+        self.Kd = 2.5
 
         # setup constants
         self.error_sum = 0
@@ -56,7 +58,7 @@ class pid_controller:
         self.target_angle = target_angle
 
     def calc_pid(self):
-        while True:
+        while self.running:
             mpu_data = self.mpu.get_accel_data(True)
             current_angle = math.degrees(math.atan2(mpu_data[self.axis1], mpu_data[self.axis2]))
 
@@ -78,12 +80,13 @@ class pid_controller:
             time.sleep(self.update_rate)
 
     def run(self):
+        self.running = True
         self.thread = threading.Thread(target=self.calc_pid, args=())
         self.thread.daemon = True  # Daemonize thread
         self.thread.start()  # Start the execution
 
     def stop(self):
-        return "stop"
+        self.running = False
 
     def get_pid(self):
         return self.pid

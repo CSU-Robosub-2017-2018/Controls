@@ -2,10 +2,11 @@ from inputs import get_gamepad
 
 x = [0,0]
 y = [0,0]
-z = 0
-rx = [0,0]
-ry = [0,0]
-rz = 0
+z = [0, 0]
+rx = [0, 0]
+ry = [0, 0]
+rz = [0, 0]
+
 
 try:
     while True:
@@ -19,7 +20,9 @@ try:
                     y[0] = max(event.state, y[0])
                     y[1] = min(event.state, y[1])
                 elif event.code == "ABS_Z":
-                    z = max(event.state, z)
+                    z[0] = max(event.state, z[0])
+                    z[1] = min(event.state, z[1])
+
                 elif event.code == "ABS_RY":
                     ry[0] = max(event.state, ry[0])
                     ry[1] = min(event.state, ry[1])
