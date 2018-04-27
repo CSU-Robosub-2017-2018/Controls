@@ -36,7 +36,7 @@ class MotorController:
 
     def get_ppb(self, freq):
         """
-        This allows the useer to get the approximate bit value for a certain us value. It is not exact. The values can be tuned in a similar way to get_bit.
+        This allows the user to get the approximate bit value for a certain us value. It is not exact. The values can be tuned in a similar way to get_bit.
         :param freq: This is the frequency you would like to get the bit value for. Note: this will set the frequency for the pi hat in the process.
         :return: Returns and float that is the amount of us per bit of the adafruit hat.
         """
