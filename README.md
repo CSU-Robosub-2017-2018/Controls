@@ -11,6 +11,9 @@ The [2017-2018 team](http://csuauv.colostate.edu/2017-2018/) is "vertically inte
 ----
 
 ## Controls ##
+
+![](https://github.com/CSU-Robosub-2017-2018/Controls/blob/master/Pictures/20180403_093831.jpg "Controls Hardware")
+
 The controls subteams goal is to integrate sensors and propulsion systems to make the AVU autonomous. 
 We worked really hard in the 2017-2018 academic year to provide a robust variety of libraries specifially tailored to the robosub. They include:
 * Computer Controller Motor Drivers
@@ -28,8 +31,20 @@ A Considerable amount of time was spent trying to create a reliable interface be
 We switched over to using and [Adafruit 12bit PWM hat](https://www.adafruit.com/product/2327) to control the ESCs. This solution is considerallby more reliable than the Arduino. It was exremely easy to get working as well. Only taking about 2 days of work to get the solution relablly outputting the values that we needed.
 
 ### PID Controller ###
-One of the first challeneges that needed to be tackled in order for the submarine to be autonomous was to create a rilable way for the AUV to get into a stable orientation. To do this a PID controller was developed. As it stands at the end of 2017-2018 the controller is very generic and is able to be instanciated multiple times. For accurate control of the AUV a minimum of 3 PID controllers are required. One for each: Pitch, Roll, and Yaw.
+One of the first challanges that needed to be tackled in order for the submarine to be autonomous was to create a reliable way for the AUV to get into a stable orientation. To do this a PID controller was developed. As it stands at the end of 2017-2018 the controller is very generic and is able to be instanciated multiple times. For accurate control of the AUV a minimum of 3 PID controllers are required. One for each: Pitch, Roll, and Yaw.
 
+![](https://github.com/CSU-Robosub-2017-2018/Controls/blob/master/Pictures/pid_control.png "PID Outline")
+
+Above is the outline that I used for the structure of the PID controller.
+
+### Controller ###
+For testing the AUV we decided to use a controller to operate all of the systems in place of sensors. This was done because all of the sensors backbones were still in devolpment at the time when we wanted to test the chassis and propulsion systems.
+
+There are several different libraries that were evaluated to use to amke the Controller Class. These were the pygames contoller library, [Approximate Engineerings python game controller library](https://approxeng.github.io/approxeng.input/), and [inputs](https://pypi.python.org/pypi/inputs). Ultimatly inputs was chose because of its documentation and low resource usage. It uses xinput driver that easily detected the xbox one controller that we used. There was another software that we tried using but the controller software driver broke upon sintallation and would not detect the xbox controller.
+
+There are several issue that we ran into with the inputs methods. One was that the controller was interrupt based(which made running the code easy) casuing the controller to not detect sudden, violent movements. This caused the sub to be uncontrollable at times. A button was allocated to make clear the controller causing the sub to stop. Another issue happened when the controller was disconnected. It would casue all of the inputs to stay the same resulting in the sub being stuck in one motor command. To avoid any serious injury because of this issue the sub disarms itself when the controller disconccects.
+
+![](https://github.com/CSU-Robosub-2017-2018/Controls/blob/master/Pictures/"Robosub Controller Scheme.jpg" "Game Controller Layout")
 
 
 ## How To ##
@@ -51,7 +66,7 @@ One of the first challeneges that needed to be tackled in order for the submarin
 
         git clone https://github.com/CSU-Robosub-2017-2018/Controls.git
         
-3. The most up to example of how to use all of the functions of the Controls repo is contained in the Apr7Test.py file.
+3. The most up to date example of how to use all of the functions of the Controls repo is contained in the Apr7Test.py file.
   
 
 
