@@ -2,7 +2,7 @@ Robosub: Controls 2017-2018, (Add years changed here)
 ===========================
 Last Updated: April 27, 2018
 
-![picture alt](https://drive.google.com/open?id=1-Zi94peJAFSFS_5cYnQrarA1XOfAxAjc "Robosub AUV Pool Test April 7, 2018")
+![](https://github.com/CSU-Robosub-2017-2018/Controls/blob/master/Pictures/20180328_211226.jpg "Robosub AUV Pool Test April 7, 2018")
 
 CSU Robosub team is a senior desgin team with the goal of creating an autonomous underwater vehicle (AUV). The vehicle is made to compete in the [nationonal robosub competition](http://www.robonation.org/competition/robosub) hosted by the navy in [California](http://scripts.mit.edu/~orca/wiki/index.php?title=Transdec).
 
