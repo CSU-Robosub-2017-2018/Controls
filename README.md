@@ -71,8 +71,8 @@ Note: I like to keep all of my python drivers in a folder in the root directory 
            sudo python setup.py install
            sudo python3 setup.py install
      
-    3. This may result in several warnings but again this is the only way that i reliablly was able to get the imports to work how they were supposed to.
-1. To use the game controller we must install the inputs package.
+    3. This may result in several warnings but again this is the only way that I reliablly was able to get the imports to work how they were supposed to.
+1. To use the game controller we must install the [inputs](https://pypi.org/project/inputs/) package.
     1. Use the following commands:
   
             cd ~/python_drivers
