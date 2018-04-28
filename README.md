@@ -44,7 +44,7 @@ There are several different libraries that were evaluated to use to amke the Con
 
 There are several issue that we ran into with the inputs methods. One was that the controller was interrupt based(which made running the code easy) casuing the controller to not detect sudden, violent movements. This caused the sub to be uncontrollable at times. A button was allocated to make clear the controller causing the sub to stop. Another issue happened when the controller was disconnected. It would casue all of the inputs to stay the same resulting in the sub being stuck in one motor command. To avoid any serious injury because of this issue the sub disarms itself when the controller disconccects.
 
-![](https://github.com/CSU-Robosub-2017-2018/Controls/blob/master/Pictures/"Robosub Controller Scheme.jpg" "Game Controller Layout")
+![](https://github.com/CSU-Robosub-2017-2018/Controls/blob/master/Pictures/Robosub_Controller_Scheme.jpg "Game Controller Layout")
 
 
 ## How To ##
@@ -62,6 +62,7 @@ There are several issue that we ran into with the inputs methods. One was that t
             sudo python3 setup.py install
      
     3. This may result inseveral warnings but again this is the only way that i reliablly was able to get the imports to work how they were supposed to.
+2. For the 
 2. To download, install, and use the Motorcontroller you need to git a version of the Controls Repo.
 
         git clone https://github.com/CSU-Robosub-2017-2018/Controls.git
