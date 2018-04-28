@@ -6,7 +6,7 @@ Description: This is the main script that controls and initializes all systems f
 
 import sys
 sys.path.append("/home/nick/github/Controls/RaspberryPi/")
-sys.path.append("/home/nick/github/Datalogger/")
+sys.path.append("/home/nick/github/DataLogger/")
 print(sys.path)
 from RaspberryPi.rpy_pid_controller.Apr5test_pid_shell import pid_wrapper
 from RaspberryPi.rpy_motorcontroller.MotorController_hat import MotorController
