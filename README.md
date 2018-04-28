@@ -50,28 +50,55 @@ There are several issue that we ran into with the inputs methods. One was that t
 ## How To ##
  __Install__
  
- 1. The PWM hat requires the [Adafruit_Pytohn PCA9685](https://github.com/adafruit/Adafruit_Python_PCA9685) Driver to operate.
+1. To begin we will make sure that all of the needed packages are installed from aptitiude.
+
+       sudo apt-get install git build-essential python-dev python3-dev python-serial python3-serial
+       
+Note: I like to keep all of my python drivers in a folder in the root directory called "python_drivers"
+
+1. To create the python_drivers folder:
+
+       cd
+       mkdir python_drivers
+       
+1. The PWM hat requires the [Adafruit_Pytohn PCA9685](https://github.com/adafruit/Adafruit_Python_PCA9685) Driver to operate.
     1. You may follow the install instructions provided but i found that for imports to work properly you needed to install it using both python 2 and python3.
     2. I used the following install commands:
     
-            sudo apt-get install git build-essential python-dev python3-dev
-            cd ~
-            git clone https://github.com/adafruit/Adafruit_Python_PCA9685.git
-            cd Adafruit_Python_PCA9685
-            sudo python setup.py install
-            sudo python3 setup.py install
+           cd ~/python_drivers
+           git clone https://github.com/adafruit/Adafruit_Python_PCA9685.git
+           cd Adafruit_Python_PCA9685
+           sudo python setup.py install
+           sudo python3 setup.py install
      
     3. This may result in several warnings but again this is the only way that i reliablly was able to get the imports to work how they were supposed to.
-2. To download, install, and use the Motorcontroller you need to git a version of the Controls Repo.
+1. To use the game controller we must install the inputs package.
+    1. Use the following commands:
+  
+            cd ~/python_drivers
+            git clone https://github.com/zeth/inputs.git
+            cd inputs
+            sudo python setup.py install
+            sudo python3 setup.py install
 
-        git clone https://github.com/CSU-Robosub-2017-2018/Controls.git
+1. I then install all of the teams repos into a folder called github.
+
+       cd ~
+       mkdir github
+            
+2. To download, install, and use the Motorcontroller you need to git a version of the Controls Repo and the Datalogger repo.
+
+       cd ~/github
+       git clone https://github.com/CSU-Robosub-2017-2018/Controls.git
+       git clone https://github.com/CSU-Robosub-2017-2018/Datalogger.git
         
 3. The most up to date example of how to use all of the functions of the Controls repo is contained in the Apr7Test.py file.
   
 
 
 
-# Requirements
+## Requirements ##
+* This is a list of other python drivers that I used over the year. In stall them in a similar way to the drivers above.
 https://github.com/adafruit/Adafruit_Python_GPIO
 https://github.com/adafruit/Adafruit_Python_PCA9685
 https://github.com/adafruit/Adafruit_Python_PureIO
