@@ -1,4 +1,4 @@
-Robosub: Controls 2017-2018, (Add years changed here)
+Robosub: Controls 2017-2018
 ===========================
 Last Updated: April 27, 2018
 
@@ -61,8 +61,7 @@ There are several issue that we ran into with the inputs methods. One was that t
             sudo python setup.py install
             sudo python3 setup.py install
      
-    3. This may result inseveral warnings but again this is the only way that i reliablly was able to get the imports to work how they were supposed to.
-2. For the 
+    3. This may result in several warnings but again this is the only way that i reliablly was able to get the imports to work how they were supposed to.
 2. To download, install, and use the Motorcontroller you need to git a version of the Controls Repo.
 
         git clone https://github.com/CSU-Robosub-2017-2018/Controls.git
